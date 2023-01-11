@@ -1,16 +1,16 @@
 {
-  "name": "pkg-name",
+  "name": "vite-plugin-pages-generate-router",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@7.12.0",
-  "description": "",
+  "description": "Generate a vue route according to the configuration json file in the specified directory",
   "author": "zhaogongchengsi <zzhhaon@163.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/zhaogongchengsi",
-  "homepage": "https://github.com/antfu/pkg-name#readme",
+  "homepage": "https://github.com/zhaogongchengsi/pkg-name#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/pkg-name.git"
+    "url": "git+https://github.com/zhaogongchengsi/pkg-name.git"
   },
   "bugs": "https://github.com/zhaogongchengsi/pkg-name/issues",
   "keywords": [],
@@ -50,7 +50,7 @@
     "@antfu/eslint-config": "^0.27.0",
     "@antfu/ni": "^0.18.0",
     "@antfu/utils": "^0.5.2",
-    "@types/node": "^18.7.18",
+    "@types/node": "^18.11.18",
     "bumpp": "^8.2.1",
     "eslint": "^8.23.1",
     "esno": "^0.16.3",
