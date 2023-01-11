@@ -37,7 +37,6 @@ export default defineConfig(() => {
 ```
 
 ```ts
-// @ts-expect-error
 import pagerouter from 'page-router'
 const modules = import.meta.glob('../views/**/*.vue')
 export type Modules = Record<string, () => Promise<unknown>>
@@ -60,7 +59,7 @@ export function replacementComponents(routers: any, modules: Modules) {
       delete router.component
     }
     if (router.children && router.children.length > 0)
-      router.children = asyncComponents(router.children, modules)
+      router.children = replacementComponents(router.children, modules)
 
     return router
   })
