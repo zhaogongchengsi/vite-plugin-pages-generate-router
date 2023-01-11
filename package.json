@@ -3,16 +3,16 @@
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@7.12.0",
-  "description": "Generate a vue route according to the configuration json file in the specified directory",
+  "description": "Generate routing table according to specified folder",
   "author": "zhaogongchengsi <zzhhaon@163.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/zhaogongchengsi",
-  "homepage": "https://github.com/zhaogongchengsi/pkg-name#readme",
+  "homepage": "https://github.com/zhaogongchengsi/vite-plugin-pages-generate-router#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhaogongchengsi/pkg-name.git"
+    "url": "git+https://github.com/zhaogongchengsi/vite-plugin-pages-generate-router.git"
   },
-  "bugs": "https://github.com/zhaogongchengsi/pkg-name/issues",
+  "bugs": "https://github.com/zhaogongchengsi/vite-plugin-pages-generate-router/issues",
   "keywords": [],
   "sideEffects": false,
   "exports": {

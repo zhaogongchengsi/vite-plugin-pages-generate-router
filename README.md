@@ -1,6 +1,6 @@
 # vite-plugin-page-generate-router
 
-## Generate a vue route according to the configuration json file in the specified directory
+## Generate routing table according to specified folder
 
 [![NPM version](https://img.shields.io/npm/v/pkg-name?color=a1b858&label=)](https://www.npmjs.com/package/pkg-name)
 
