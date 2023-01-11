@@ -1,5 +1,5 @@
-import { access, constants, readdir, stat, readFile } from "fs/promises";
-import { resolve, posix } from "path";
+import { access, constants, readFile, readdir, stat } from "fs/promises";
+import { posix, resolve } from "path";
 import os from "os";
 
 export async function targetDirExist(path: string) {
@@ -13,11 +13,11 @@ export async function targetDirExist(path: string) {
 
 export type FileTree = FileNode[];
 
-export type FileNode = {
+export interface FileNode {
   path: string;
   children?: FileTree;
   files: string[];
-};
+}
 
 export async function scanFile(path: string) {
   const files = await readdir(path);
@@ -25,9 +25,7 @@ export async function scanFile(path: string) {
   for await (const file of files) {
     const newDir = resolve(path, file);
     const fileStat = await stat(newDir);
-    if (fileStat.isFile()) {
-      resultFile.push(newDir);
-    }
+    if (fileStat.isFile()) resultFile.push(newDir);
   }
   return resultFile;
 }

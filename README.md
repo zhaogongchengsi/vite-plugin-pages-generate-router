@@ -16,74 +16,70 @@ pnpm add vite-plugin-pages-generate-router -D
 ```ts
 // vite.config.ts
 import {
-  pageGenerateRouter,
   type Transform,
-} from "vite-plugin-pages-generate-router";
+  pageGenerateRouter,
+} from 'vite-plugin-pages-generate-router'
 
 export default defineConfig(() => {
   return {
     plugins: [
       pageGenerateRouter({
         // Specified routing directory
-        generateDir: "./src/views",
+        generateDir: './src/views',
         /**
          * Customized conversion
          */
         // transform: () => {} as Transform
       }),
     ],
-  };
-});
+  }
+})
 ```
 
 ```ts
-// @ts-ignore
-import pagerouter from "page-router";
-const modules = import.meta.glob("../views/**/*.vue");
-
-export type Modules = Record<string, () => Promise<unknown>>;
-
+// @ts-expect-error
+import pagerouter from 'page-router'
+const modules = import.meta.glob('../views/**/*.vue')
+export type Modules = Record<string, () => Promise<unknown>>
 function specModuels(modules: Modules, prefix: string | RegExp) {
-  const moduleMap = new Map<string, Modules>();
-  // @ts-ignore
-  for (const [name, module] of Object.entries(modules)) {
-    moduleMap.set(name.replace(prefix, ""), module);
-  }
-  return moduleMap;
+  const moduleMap = new Map<string, Modules>()
+  for (const [name, module] of Object.entries(modules))
+    moduleMap.set(name.replace(prefix, ''), module)
+  return moduleMap
 }
 
 export function replacementComponents(routers: any, modules: Modules) {
-  const _modules = specModuels(modules, "../views");
+  const _modules = specModuels(modules, '../views')
   return routers.map((router: { component: any; children: string | any[] }) => {
-    const module = _modules.get(router.component);
+    const module = _modules.get(router.component)
     if (module) {
-      router.component = module;
-    } else {
+      router.component = module
+    }
+    else {
       // Not found
-      delete router.component;
+      delete router.component
     }
-    if (router.children && router.children.length > 0) {
-      router.children = asyncComponents(router.children, modules);
-    }
-    return router;
-  });
+    if (router.children && router.children.length > 0)
+      router.children = asyncComponents(router.children, modules)
+
+    return router
+  })
 }
 
-const routers = replacementComponents(pageRouters, modules);
+const routers = replacementComponents(pageRouters, modules)
 const router = createRouter({
-  // @ts-ignore
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     // Other routes
     {
       component: RootView,
-      path: "/",
-      name: "root",
+      path: '/',
+      name: 'root',
     },
     ...routers,
   ],
-});
-app.use(router);
+})
+app.use(router)
 ```
 
 ---
@@ -92,12 +88,12 @@ app.use(router);
 
 ```ts
 interface Options {
-  generateDir: string;
-  root?: string;
-  settingFile?: string;
-  defaultIndex?: string;
-  name?: string;
-  transform?: Transform;
+  generateDir: string
+  root?: string
+  settingFile?: string
+  defaultIndex?: string
+  name?: string
+  transform?: Transform
 }
 ```
 

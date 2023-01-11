@@ -1,18 +1,18 @@
-import { describe, it, expect } from "vitest";
-import { resolve } from "path";
-import { generateRouter } from "../src/index";
-import { folderScan } from "../src/utils";
+import { resolve } from 'path'
+import { describe, expect, it } from 'vitest'
+import { generateRouter } from '../src/index'
+import { folderScan } from '../src/utils'
 
-describe("pageGenerateRouter", () => {
-  it("generateRouter", async () => {
-    const target = resolve(__dirname, "pages");
-    const modules = await folderScan(target);
+describe('pageGenerateRouter', () => {
+  it('generateRouter', async () => {
+    const target = resolve(__dirname, 'pages')
+    const modules = await folderScan(target)
 
     const res = await generateRouter(modules, {
-      settingFile: "setting.json",
+      settingFile: 'setting.json',
       targetDir: target,
-      defaultIndex: "index.vue",
-    });
+      defaultIndex: 'index.vue',
+    })
 
     expect(res).toMatchInlineSnapshot(`
       [
@@ -43,6 +43,6 @@ describe("pageGenerateRouter", () => {
           "path": "/home-page",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})
