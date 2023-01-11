@@ -66,18 +66,6 @@ export function pick<T, Y>(obj: any, keys: string[]): [T, Y] {
   return [newObj, other];
 }
 
-export function solveMeta(setting: PageSetting) {
-  const _setting = JSON.parse(JSON.stringify(setting));
-  const meta: Record<string, any> = {};
-
-  for (const [key, value] of Object.entries(_setting)) {
-    if (!ROUTER_KEYS.includes(key)) {
-      meta[key] = value;
-    }
-  }
-  return meta;
-}
-
 async function formatRouterInfo(
   dir: string,
   files: string[],
