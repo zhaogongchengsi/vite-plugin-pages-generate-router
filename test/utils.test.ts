@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
-import { folderScan, readJson, targetDirExist, travel } from '../src/utils/index'
+import { folderScan, readJson, targetDirExist, travel, travelSync } from '../src/utils/index'
 
 describe('utils', () => {
   it('targetDirExist', async () => {
@@ -27,17 +27,26 @@ describe('utils', () => {
     })
   })
 
-  it('travel list', () => {
+  it('travel list', async () => {
     const tree = [{ num: 1 }, { num: 2 }]
-    const res = travel(tree, ({ num }) => {
+    const res = await travel(tree, ({ num }) => {
       return { num: num + 1 }
     })
+
     expect(res).toEqual([{ num: 2 }, { num: 3 }])
   })
 
-  it('travel tree', () => {
+  it('travel tree', async () => {
     const tree = [{ num: 1, children: [{ num: 2, children: [{ num: 3 }] }] }, { num: 2 }]
-    const res = travel(tree, ({ num }) => {
+    const res = await travel(tree, ({ num }) => {
+      return { num: num + 1 }
+    })
+    expect(res).toEqual([{ num: 2, children: [{ num: 3, children: [{ num: 4 }] }] }, { num: 3 }])
+  })
+
+  it('travel tree Sync', () => {
+    const tree = [{ num: 1, children: [{ num: 2, children: [{ num: 3 }] }] }, { num: 2 }]
+    const res = travelSync(tree, ({ num }) => {
       return { num: num + 1 }
     })
     expect(res).toEqual([{ num: 2, children: [{ num: 3, children: [{ num: 4 }] }] }, { num: 3 }])

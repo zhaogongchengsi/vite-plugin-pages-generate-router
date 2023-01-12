@@ -60,14 +60,32 @@ export function normalizePath(path: string): string {
   return posix.normalize(isWindows ? path.replace(reg, '/') : path)
 }
 
-export function travel<T>(tree: T[], cb: (node: T) => any, opt: { subNodeName: string } = { subNodeName: 'children' }) {
+export async function travel<T>(tree: T[], cb: (node: T) => any, opt: { subNodeName: string } = { subNodeName: 'children' }) {
   const { subNodeName } = opt
-  return tree.map((node) => {
-    const res = cb(node)
+  const newTree: T[] = []
+
+  for await (const node of tree) {
+    const newNode = await Promise.resolve(cb(node))
+
     const subNode = node[subNodeName]
     if (subNode)
-      res[subNodeName] = travel(subNode, cb, opt)
+      newNode[subNodeName] = await travel(subNode, cb, opt)
 
-    return res
+    newTree.push(newNode)
+  }
+
+  return newTree
+}
+
+export function travelSync <T>(tree: T[], cb: (node: T) => any, opt: { subNodeName: string } = { subNodeName: 'children' }) {
+  const { subNodeName } = opt
+  return tree.map((node) => {
+    const newNode = cb(node)
+
+    const subNode = node[subNodeName]
+    if (subNode)
+      newNode[subNodeName] = travelSync(subNode, cb, opt)
+
+    return newNode
   })
 }
