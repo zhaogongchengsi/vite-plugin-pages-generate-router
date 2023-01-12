@@ -1,0 +1,6 @@
+{
+  "name": "Home",
+  "title": "首页",
+  "path": "/",
+  "index": "index.tsx"
+}

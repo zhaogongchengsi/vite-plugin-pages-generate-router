@@ -1,0 +1,6 @@
+{
+  "name": "About",
+  "title": "关于我们",
+  "path": "/about",
+  "index": "index.tsx"
+}
