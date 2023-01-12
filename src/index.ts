@@ -145,8 +145,6 @@ export async function pageGenerateRouter(options: PageGenerateOptions) {
     async load(id: string) {
       if (id !== resolvedVirtualModuleId)
         return
-      // eslint-disable-next-line no-console
-      console.log('load')
 
       const modules = await folderScan(target)
 

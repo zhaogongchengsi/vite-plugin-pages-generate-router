@@ -149,8 +149,13 @@ The name of the front-end component file that renders the page
 
 Function to convert routing profiles to custom routing information
 
+---
 
 ## Generate the destination folder for the route
+
+### ❗ Tips
+- After the page configuration file is changed, you need to restart vite without hmr (**Welcome pr that need this feature**✨)
+- After obtaining the json route data, it needs to be processed as a real route by itself
 
 [![NPM version](https://img.shields.io/npm/v/vite-plugin-pages-generate-router?color=a1b858&label=vite-plugin-pages-generate-router)](https://www.npmjs.com/package/vite-plugin-pages-generate-router)
 
