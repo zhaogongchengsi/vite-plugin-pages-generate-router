@@ -80,7 +80,8 @@ const router = createRouter({
 })
 app.use(router)
 ```
-
+### Examples
+- [vue](examples/vue)
 ---
 
 # Options
@@ -145,7 +146,7 @@ The name of the front-end component file that renders the page
     ) => 
         Custom-routing-information```
 - required ✖
-- default: 转换为 [vue-router](https://router.vuejs.org/) [RouteRecordRaw](https://router.vuejs.org/zh/api/#routerecordraw)
+- default: Convert to [vue-router](https://router.vuejs.org/) [RouteRecordRaw](https://router.vuejs.org/zh/api/#routerecordraw)
 
 Function to convert routing profiles to custom routing information
 
@@ -156,6 +157,7 @@ Function to convert routing profiles to custom routing information
 ### ❗ Tips
 - After the page configuration file is changed, you need to restart vite without hmr (**Welcome pr that need this feature**✨)
 - After obtaining the json route data, it needs to be processed as a real route by itself
+- Only the specified configuration file in the folder will be considered a route
 
 [![NPM version](https://img.shields.io/npm/v/vite-plugin-pages-generate-router?color=a1b858&label=vite-plugin-pages-generate-router)](https://www.npmjs.com/package/vite-plugin-pages-generate-router)
 
