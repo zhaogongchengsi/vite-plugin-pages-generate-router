@@ -59,3 +59,15 @@ export function normalizePath(path: string): string {
   const reg = /\\/g
   return posix.normalize(isWindows ? path.replace(reg, '/') : path)
 }
+
+export function travel<T>(tree: T[], cb: (node: T) => any, opt: { subNodeName: string } = { subNodeName: 'children' }) {
+  const { subNodeName } = opt
+  return tree.map((node) => {
+    const res = cb(node)
+    const subNode = node[subNodeName]
+    if (subNode)
+      res[subNodeName] = travel(subNode, cb, opt)
+
+    return res
+  })
+}
