@@ -1,9 +1,12 @@
 import { isAbsolute, resolve } from 'path'
+import {
+  travel,
+  travelSync,
+} from './travel'
 import type { FileNode } from './utils/index'
 import {
   folderScan,
-  travel,
-  travelSync,
+
 } from './utils/index'
 import type { TransformOptions } from './config'
 import { createReactTransform, createVueTransform } from './config'

@@ -1,7 +1,8 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
-import { folderScan, travel } from '../src/utils'
+import { folderScan } from '../src/utils'
 import { createReactTransform, createVueTransform } from '../src/config'
+import { travel } from '../src/travel'
 
 describe('pageGenerateRouter', () => {
   it('transform vue', async () => {

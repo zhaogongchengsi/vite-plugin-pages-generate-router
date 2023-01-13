@@ -1,7 +1,8 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
 import type { FileTree } from '../src/utils/index'
-import { folderScan, readJson, targetDirExist, travel, travelSync } from '../src/utils/index'
+import { folderScan, readJson, targetDirExist } from '../src/utils/index'
+import { travel, travelSync } from '../src/travel'
 
 describe('utils', () => {
   it('targetDirExist', async () => {
