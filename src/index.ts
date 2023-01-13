@@ -5,6 +5,8 @@ import {
   normalizePath,
   readJson,
   targetDirExist,
+  travel,
+  travelSync,
 } from './utils/index'
 
 export interface PageGenerateOptions {
@@ -162,3 +164,5 @@ export async function pageGenerateRouter(options: PageGenerateOptions) {
     },
   }
 }
+
+export { travel, travelSync }

@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
+import type { FileTree } from '../src/utils/index'
 import { folderScan, readJson, targetDirExist, travel, travelSync } from '../src/utils/index'
 
 describe('utils', () => {
@@ -50,5 +51,129 @@ describe('utils', () => {
       return { num: num + 1 }
     })
     expect(res).toEqual([{ num: 2, children: [{ num: 3, children: [{ num: 4 }] }] }, { num: 3 }])
+  })
+
+  it('Traverse the file tree', async () => {
+    const tree: FileTree = [
+      {
+        path: '/',
+        files: [],
+        children: [
+          {
+            path: '/home',
+            files: [],
+          },
+          {
+            path: '/about',
+            files: [],
+            children: [
+              {
+                path: 'datiles',
+                files: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'login',
+        files: [],
+      },
+    ]
+    const newTree = await travel(tree, (node) => {
+      return {
+        path: `${node.path}-${1}`,
+        files: node.files,
+      }
+    })
+
+    expect(newTree).toStrictEqual([
+      {
+        path: '/-1',
+        files: [],
+        children: [
+          {
+            path: '/home-1',
+            files: [],
+          },
+          {
+            path: '/about-1',
+            files: [],
+            children: [
+              {
+                path: 'datiles-1',
+                files: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'login-1',
+        files: [],
+      },
+    ])
+  })
+
+  it('Traverse the file tree (async)', () => {
+    const tree: FileTree = [
+      {
+        path: '/',
+        files: [],
+        children: [
+          {
+            path: '/home',
+            files: [],
+          },
+          {
+            path: '/about',
+            files: [],
+            children: [
+              {
+                path: 'datiles',
+                files: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'login',
+        files: [],
+      },
+    ]
+    const newTree = travelSync(tree, (node) => {
+      return {
+        path: `${node.path}-${1}`,
+        files: node.files,
+      }
+    })
+
+    expect(newTree).toStrictEqual([
+      {
+        path: '/-1',
+        files: [],
+        children: [
+          {
+            path: '/home-1',
+            files: [],
+          },
+          {
+            path: '/about-1',
+            files: [],
+            children: [
+              {
+                path: 'datiles-1',
+                files: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'login-1',
+        files: [],
+      },
+    ])
   })
 })

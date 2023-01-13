@@ -1,7 +1,8 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
 import { generateRouter } from '../src/index'
-import { folderScan } from '../src/utils'
+import { folderScan, travel } from '../src/utils'
+import { createVueTransform } from '../src/config'
 
 describe('pageGenerateRouter', () => {
   it('generateRouter', async () => {
@@ -44,5 +45,18 @@ describe('pageGenerateRouter', () => {
         },
       ]
     `)
+  })
+
+  it('transform', async () => {
+    const target = resolve(__dirname, 'pages')
+    const modules = await folderScan(target)
+
+    const routerPage = await travel(modules, createVueTransform({
+      settingFile: 'setting.json',
+      defaultIndex: 'index.vue',
+      targetDir: target,
+    }))
+
+    console.log(routerPage)
   })
 })

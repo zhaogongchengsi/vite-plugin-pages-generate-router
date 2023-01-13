@@ -67,7 +67,7 @@ export async function travel<T>(tree: T[], cb: (node: T) => any, opt: { subNodeN
   for await (const node of tree) {
     const newNode = await Promise.resolve(cb(node))
 
-    const subNode = node[subNodeName]
+    const subNode = Reflect.get(node as any, subNodeName)
     if (subNode)
       newNode[subNodeName] = await travel(subNode, cb, opt)
 
@@ -82,7 +82,7 @@ export function travelSync <T>(tree: T[], cb: (node: T) => any, opt: { subNodeNa
   return tree.map((node) => {
     const newNode = cb(node)
 
-    const subNode = node[subNodeName]
+    const subNode = Reflect.get(node as any, subNodeName)
     if (subNode)
       newNode[subNodeName] = travelSync(subNode, cb, opt)
 

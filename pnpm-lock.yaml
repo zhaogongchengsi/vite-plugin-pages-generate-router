@@ -13,6 +13,7 @@ importers:
       esno: ^0.16.3
       pnpm: ^7.12.0
       rimraf: ^3.0.2
+      rollup: ^3.10.0
       typescript: ^4.8.3
       unbuild: ^0.8.11
       vite: ^3.1.2
@@ -27,6 +28,7 @@ importers:
       esno: 0.16.3
       pnpm: 7.12.0
       rimraf: 3.0.2
+      rollup: 3.10.0
       typescript: 4.8.3
       unbuild: 0.8.11
       vite: 3.1.2
@@ -3963,6 +3965,14 @@ packages:
   /rollup/2.79.0:
     resolution: {integrity: sha512-x4KsrCgwQ7ZJPcFA/SUu6QVcYlO7uRLfLAy0DSA4NS2eG8japdbpM50ToH7z4iObodRYOJ0soneF0iaQRJ6zhA==}
     engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /rollup/3.10.0:
+    resolution: {integrity: sha512-JmRYz44NjC1MjVF2VKxc0M1a97vn+cDxeqWmnwyAF4FvpjK8YFdHpaqvQB+3IxCvX05vJxKZkoMDU8TShhmJVA==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
