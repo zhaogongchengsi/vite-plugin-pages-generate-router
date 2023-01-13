@@ -26,10 +26,6 @@ export default defineConfig(() => {
       pageGenerateRouter({
         // Specified routing directory
         generateDir: './src/views',
-        /**
-         * Customized conversion
-         */
-        // transform: () => {} as Transform
       }),
     ],
   }
@@ -90,10 +86,10 @@ app.use(router)
 interface Options {
   generateDir: string
   root?: string
-  settingFile?: string
   defaultIndex?: string
   name?: string
   transform?: Transform
+  routerType?: routerType
 }
 ```
 
@@ -138,17 +134,24 @@ The name of the front-end component file that renders the page
 
 #### transform
 
-- type: ```(
-    dir:Current folder, 
-    files: Files under the current folder, 
-    setting: Configuration information, 
-    options: Final configuration options
-    ) => 
-        Custom-routing-information```
+- type: ```(options: Final configuration options) => 
+            (currenPath: string, files: string[]) =>  
+              Custom-routing-information
+          ```
 - required ✖
 - default: Convert to [vue-router](https://router.vuejs.org/) [RouteRecordRaw](https://router.vuejs.org/zh/api/#routerecordraw)
 
 Function to convert routing profiles to custom routing information
+
+#### routerType
+
+- type: react | vue
+- required ✖
+- default: vue
+
+Type of routing frame to convert
+- vue -> vue-router
+- react -> react-router
 
 ---
 
