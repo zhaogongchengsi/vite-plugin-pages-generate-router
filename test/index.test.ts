@@ -1,25 +1,25 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
-import { generateRouter } from '../src/index'
 import { folderScan, travel } from '../src/utils'
 import { createVueTransform } from '../src/config'
 
 describe('pageGenerateRouter', () => {
-  it('generateRouter', async () => {
+  it('transform', async () => {
     const target = resolve(__dirname, 'pages')
     const modules = await folderScan(target)
 
-    const res = await generateRouter(modules, {
+    const routerPage = await travel(modules, createVueTransform({
       settingFile: 'setting.json',
-      targetDir: target,
       defaultIndex: 'index.vue',
-    })
+      targetDir: target,
+    }))
 
-    expect(res).toMatchInlineSnapshot(`
+    expect(routerPage).toMatchInlineSnapshot(`
       [
         {
           "children": [
             {
+              "children": [],
               "component": "/about/detail/index.vue",
               "meta": {
                 "title": "详情",
@@ -36,6 +36,7 @@ describe('pageGenerateRouter', () => {
           "path": "/about",
         },
         {
+          "children": [],
           "component": "/home/index.vue",
           "meta": {
             "title": "首页",
@@ -45,18 +46,5 @@ describe('pageGenerateRouter', () => {
         },
       ]
     `)
-  })
-
-  it('transform', async () => {
-    const target = resolve(__dirname, 'pages')
-    const modules = await folderScan(target)
-
-    const routerPage = await travel(modules, createVueTransform({
-      settingFile: 'setting.json',
-      defaultIndex: 'index.vue',
-      targetDir: target,
-    }))
-
-    console.log(routerPage)
   })
 })

@@ -25,7 +25,7 @@ const vueDefauleConfig: TransformOptions = {
   targetDir: process.cwd(),
 }
 
-export function createVueTransform(options: TransformOptions) {
+export function createVueTransform(options?: TransformOptions) {
   const { settingFile, defaultIndex, targetDir } = Object.assign(vueDefauleConfig, options)
   return async ({ path }: FileNode) => {
     const settingPath = resolve(path, settingFile!)
