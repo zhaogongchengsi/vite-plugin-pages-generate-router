@@ -6,7 +6,7 @@ import {
   travelSync,
 } from './utils/index'
 import type { TransformOptions } from './config'
-import { createVueTransform } from './config'
+import { createReactTransform, createVueTransform } from './config'
 
 export interface PageGenerateOptions {
   generateDir: string
@@ -14,21 +14,15 @@ export interface PageGenerateOptions {
   defaultIndex?: string
   name?: string
   transform?: Transform
+  routerType?: routerType
 }
+
+export type routerType = 'vue' | 'react'
 
 export interface GenerateRouterOptons {
   targetDir: string
   settingFile: string
   defaultIndex: string
-}
-
-export interface PageSetting {
-  title?: string
-  index: string
-  path: string
-  name?: string
-  component?: string
-  [key: string]: any
 }
 
 export type Transform = (options?: TransformOptions) => (fileNode: FileNode) => Promise<any>
@@ -50,6 +44,17 @@ export function pick<T, Y>(obj: any, keys: string[]): [T, Y] {
   return [newObj, other]
 }
 
+export function createDefaultTransform(type?: routerType) {
+  switch (type) {
+    case 'vue':
+      return createVueTransform
+    case 'react':
+      return createReactTransform
+    default:
+      return createVueTransform
+  }
+}
+
 export async function pageGenerateRouter(options: PageGenerateOptions) {
   const root: string
     = options.root && isAbsolute(options.root || '')
@@ -60,12 +65,7 @@ export async function pageGenerateRouter(options: PageGenerateOptions) {
   const virtualModuleId = options?.name || VIRTUAL_MODULEID
   const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
-  let transform = createVueTransform({
-    targetDir: target,
-  })
-
-  if (options.transform)
-    transform = options.transform()
+  const transform = options.transform ? options.transform() : createDefaultTransform(options.routerType)({ ...options, targetDir: target })
 
   return {
     name: PLUGIN_NAME,
