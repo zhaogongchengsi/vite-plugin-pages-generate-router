@@ -1,10 +1,10 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
 import { folderScan, travel } from '../src/utils'
-import { createVueTransform } from '../src/config'
+import { createReactTransform, createVueTransform } from '../src/config'
 
 describe('pageGenerateRouter', () => {
-  it('transform', async () => {
+  it('transform vue', async () => {
     const target = resolve(__dirname, 'pages')
     const modules = await folderScan(target)
 
@@ -38,6 +38,50 @@ describe('pageGenerateRouter', () => {
         {
           "children": [],
           "component": "/home/index.vue",
+          "meta": {
+            "title": "首页",
+          },
+          "name": "home",
+          "path": "/home-page",
+        },
+      ]
+    `)
+  })
+
+  it('transform vue', async () => {
+    const target = resolve(__dirname, 'pages')
+    const modules = await folderScan(target)
+
+    const routerPage = await travel(modules, createReactTransform({
+      settingFile: 'setting.json',
+      defaultIndex: 'index.vue',
+      targetDir: target,
+    }))
+
+    expect(routerPage).toMatchInlineSnapshot(`
+      [
+        {
+          "children": [
+            {
+              "children": [],
+              "element": "/about/detail/index.vue",
+              "meta": {
+                "title": "详情",
+              },
+              "name": "详情",
+              "path": "/about/detail",
+            },
+          ],
+          "element": "/about/index.vue",
+          "meta": {
+            "title": "关于我们",
+          },
+          "name": "关于我们",
+          "path": "/about",
+        },
+        {
+          "children": [],
+          "element": "/home/index.vue",
           "meta": {
             "title": "首页",
           },
