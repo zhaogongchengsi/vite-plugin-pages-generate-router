@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
 import type { FileTree } from '../src/utils/index'
-import { folderScan, readJson, targetDirExist } from '../src/utils/index'
+import { folderScan, pathResolu, readJson, targetDirExist } from '../src/utils/index'
 import { travel, travelSync } from '../src/travel'
 
 describe('utils', () => {
@@ -176,5 +176,17 @@ describe('utils', () => {
         files: [],
       },
     ])
+  })
+
+  it('pathResolu', () => {
+    const target = resolve(__dirname, './src/pages')
+    const router = resolve(target, './home')
+    const entry = resolve(router, './index.vue')
+    const info = pathResolu(target, router, entry)
+    expect(info).toEqual({
+      componentPath: '/home/index.vue',
+      routerPath: '/home',
+      name: 'index',
+    })
   })
 })

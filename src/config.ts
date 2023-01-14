@@ -1,6 +1,6 @@
-import { parse, resolve } from 'path'
+import { resolve } from 'path'
 import type { FileNode } from './utils'
-import { normalizePath, readJson } from './utils'
+import { pathResolu, readJson } from './utils'
 import { pick } from '.'
 
 export interface TransformOptions {
@@ -49,19 +49,7 @@ export function createVueTransform(options?: TransformOptions) {
     const setting = await readJson<{ index: string }>(settingPath)
     const entry = resolve(path, setting?.index || defaultIndex!)
 
-    // user/admin/src/login/index.vue
-    // |    root     |    page      |
-    // |    root     |   component  |
-    //      root     |    path   |
-    //      root           |name |
-
-    // 根目录
-    const target = normalizePath(targetDir)
-    // 页面的根目录
-    const newdir = normalizePath(path)
-    const routerPath = newdir.replace(target, '')
-    const { name } = parse(entry)
-    const componentPath = normalizePath(entry).replace(target, '')
+    const { componentPath, name, routerPath } = pathResolu(targetDir, path, entry)
     const [router, meta] = pick<any, any>(setting, ROUTER_VUE_KEYS)
 
     return {
@@ -81,11 +69,7 @@ export function createReactTransform(options?: TransformOptions) {
     const setting = await readJson<{ index: string }>(settingPath)
     const entry = resolve(path, setting?.index || defaultIndex!)
 
-    const target = normalizePath(targetDir)
-    const newdir = normalizePath(path)
-    const componentPath = normalizePath(entry).replace(target, '')
-    const routerPath = newdir.replace(target, '')
-    const { name } = parse(entry)
+    const { componentPath, name, routerPath } = pathResolu(targetDir, path, entry)
     const [router, meta] = pick<any, any>(setting, ROUTER_REACR_KEYS)
 
     return {

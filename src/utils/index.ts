@@ -1,5 +1,5 @@
 import { access, constants, readFile, readdir, stat } from 'fs/promises'
-import { posix, resolve } from 'path'
+import { parse, posix, resolve } from 'path'
 import os from 'os'
 
 export async function targetDirExist(path: string) {
@@ -55,8 +55,31 @@ export async function readJson<T>(path: string): Promise<T> {
 }
 
 const isWindows = os.platform() === 'win32'
-export function normalizePath(path: string): string {
+
+function unification(id: string) {
   const reg = /\\/g
-  return posix.normalize(isWindows ? path.replace(reg, '/') : path)
+  return id.replace(reg, '/')
 }
 
+export function normalizePath(id: string): string {
+  return posix.normalize(isWindows ? unification(id) : id)
+}
+
+export function pathResolu(target: string, currentPath: string, entry: string) {
+  // user/admin/src/login/index.vue
+  // |    root     |    page      |
+  // |    root     |   component  |
+  // |    root     |    path   |
+  // |    root     |     |name |
+
+  const targetDir = normalizePath(target)
+  const newdir = normalizePath(currentPath)
+  const componentPath = normalizePath(entry).replace(targetDir, '')
+  const routerPath = newdir.replace(targetDir, '')
+  const { name } = parse(entry)
+  return {
+    componentPath,
+    routerPath,
+    name,
+  }
+}
