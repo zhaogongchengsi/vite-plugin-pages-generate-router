@@ -2,6 +2,20 @@ import { access, constants, readFile, readdir, stat } from 'fs/promises'
 import { parse, posix, resolve } from 'path'
 import os from 'os'
 
+export function pick<T, Y>(obj: any, keys: string[]): [T, Y] {
+  const _setting = JSON.parse(JSON.stringify(obj))
+  const newObj: any = {}
+  const other: any = {}
+
+  for (const [key, value] of Object.entries(_setting)) {
+    if (keys.includes(key))
+      newObj[key] = value
+    else
+      other[key] = value
+  }
+  return [newObj, other]
+}
+
 export async function targetDirExist(path: string) {
   try {
     await access(path, constants.R_OK | constants.W_OK)

@@ -1,8 +1,6 @@
 import { resolve } from 'path'
 import type { FileNode } from './utils'
-import { pathResolu, readJson } from './utils'
-import { pick } from '.'
-
+import { pathResolu, pick, readJson } from './utils'
 export interface TransformOptions {
   settingFile?: string
   defaultIndex?: string
