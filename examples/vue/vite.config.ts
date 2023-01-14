@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     vue(),
     pageGenerateRouter({
-      generateDir: "./src/views",
+      generateDir: "./src/viewsabc",
     }),
   ],
   resolve: {

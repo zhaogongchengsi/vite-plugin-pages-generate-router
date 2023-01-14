@@ -6,7 +6,7 @@ import {
 import type { FileNode } from './utils/index'
 import {
   folderScan,
-
+  targetDirExist,
 } from './utils/index'
 import type { TransformOptions } from './config'
 import { createReactTransform, createVueTransform } from './config'
@@ -80,6 +80,8 @@ export async function pageGenerateRouter(options: PageGenerateOptions) {
     async load(id: string) {
       if (id !== resolvedVirtualModuleId)
         return
+      if (!await targetDirExist(target))
+        return 'export default []'
 
       const modules = await folderScan(target)
       const res = await travel(modules, transform)
