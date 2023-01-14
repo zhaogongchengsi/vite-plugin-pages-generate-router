@@ -9,6 +9,10 @@ const modules = import.meta.glob("../views/**/*.vue");
 
 export function createAppRouter(app: App) {
   const routers = asyncComponents(pageRouters, modules);
+  
+  console.log(routers);
+  
+
   const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [

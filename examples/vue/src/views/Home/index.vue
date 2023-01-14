@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import TheWelcome from '@/components/TheWelcome.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <div class="title"> Home </div>
+    <router-view></router-view>
   </main>
 </template>
 
-<style lang="scss"></style>
+<style>
+.title {
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+</style>

@@ -5,9 +5,6 @@ import { RouterLink } from 'vue-router'
 <template>
   <div>
     <h1>Root</h1>
-    <RouterLink to="/home">
-      Home
-    </RouterLink>
   </div>
 </template>
 
